@@ -1,0 +1,86 @@
+<!doctype html><html><body style="margin:0;background:#000">
+<canvas id="c"></canvas>
+<script>
+const TAU = Math.PI*2;
+let C, X, W, H, HERO = null;
+function setup(w, h){ C=document.getElementById('c'); C.width=w; C.height=h; W=w; H=h; X=C.getContext('2d'); }
+function loadHero(src){ return new Promise(r=>{ HERO=new Image(); HERO.onload=()=>r(true); HERO.src=src; }); }
+function rnd(seed){ let s=seed; return ()=>{ s=(s*16807)%2147483647; return (s-1)/2147483646; }; }
+
+// ---------- HERO: AI head image, breathing zoom, particles, light sweep ----------
+const R1 = rnd(42), PARTS = Array.from({length:170},()=>({x:R1(),y:R1(),ph:R1(),len:0.08+R1()*0.22,ang:-0.5+R1()*0.7,sz:0.6+R1()*2.2,hue:R1()}));
+function drawHero(t, T){
+  const p = t/T;
+  X.fillStyle='#0a1220'; X.fillRect(0,0,W,H);
+  const s = 1.045 + 0.025*Math.sin(TAU*p);
+  const ih = H*s, iw = HERO.width*ih/HERO.height;
+  const cx = W*0.585 + 10*Math.sin(TAU*p), cy = H*0.5 + 6*Math.cos(TAU*p);
+  X.drawImage(HERO, cx-iw/2, cy-ih/2, iw, ih);
+  let g = X.createLinearGradient(0,0,W*0.62,0);
+  g.addColorStop(0,'rgba(10,18,32,0.97)'); g.addColorStop(0.55,'rgba(10,18,32,0.80)'); g.addColorStop(1,'rgba(10,18,32,0)');
+  X.fillStyle=g; X.fillRect(0,0,W,H);
+  let gb = X.createLinearGradient(0,H*0.62,0,H); gb.addColorStop(0,'rgba(10,18,32,0)'); gb.addColorStop(1,'rgba(10,18,32,0.85)');
+  X.fillStyle=gb; X.fillRect(0,0,W,H);
+  X.globalCompositeOperation='lighter';
+  const lx = W*(0.55+0.25*Math.cos(TAU*p)), ly = H*(0.45+0.18*Math.sin(TAU*p));
+  let rg = X.createRadialGradient(lx,ly,0,lx,ly,W*0.28); rg.addColorStop(0,'rgba(150,185,225,0.10)'); rg.addColorStop(1,'rgba(150,185,225,0)');
+  X.fillStyle=rg; X.fillRect(0,0,W,H);
+  for(const q of PARTS){
+    const life = (p + q.ph) % 1, a = Math.sin(Math.PI*life);
+    const x = (q.x*0.75+0.25)*W + Math.cos(q.ang)*q.len*W*life, y = q.y*H + Math.sin(q.ang)*q.len*H*life - life*40;
+    const col = q.hue<0.5 ? `rgba(200,225,250,${0.75*a})` : `rgba(150,185,225,${0.75*a})`;
+    X.fillStyle=col; X.beginPath(); X.arc(x,y,q.sz*(0.6+0.4*a),0,TAU); X.fill();
+    if(q.sz>2.2){ let pg=X.createRadialGradient(x,y,0,x,y,q.sz*7); pg.addColorStop(0,`rgba(170,200,235,${0.18*a})`); pg.addColorStop(1,'rgba(0,0,0,0)'); X.fillStyle=pg; X.fillRect(x-q.sz*7,y-q.sz*7,q.sz*14,q.sz*14); }
+  }
+  X.globalCompositeOperation='source-over';
+}
+
+// ---------- WAVE: audio bars + glowing line (card background) ----------
+const R2 = rnd(7), BARS = Array.from({length:96},(_,i)=>({k1:1+Math.floor(R2()*3),k2:2+Math.floor(R2()*4),ph1:R2(),ph2:R2(),a:R2()}));
+function lerpCol(t){ const s=[[92,122,153],[184,211,238],[240,246,252]]; const u=t<0.55? t/0.55 : (t-0.55)/0.45; const A=t<0.55?s[0]:s[1], B=t<0.55?s[1]:s[2]; return A.map((v,i)=>Math.round(v+(B[i]-v)*u)); }
+function rrect(x,y,w,h,r){ X.beginPath(); X.moveTo(x+r,y); X.arcTo(x+w,y,x+w,y+h,r); X.arcTo(x+w,y+h,x,y+h,r); X.arcTo(x,y+h,x,y,r); X.arcTo(x,y,x+w,y,r); X.fill(); }
+function drawWave(t, T){
+  const p=t/T; X.fillStyle='#0b1424'; X.fillRect(0,0,W,H);
+  const n=BARS.length, gap=W/n, bw=gap*0.46, mid=H/2;
+  for(let i=0;i<n;i++){
+    const b=BARS[i], u=i/(n-1);
+    const env = 0.25+0.75*Math.pow(Math.sin(Math.PI*u),0.8);
+    const v = 0.5+0.5*(0.6*Math.sin(TAU*(b.k1*p+b.ph1)) + 0.4*Math.sin(TAU*(b.k2*p+b.ph2)));
+    const hh = Math.max(4, env*(0.15+0.85*v)*H*0.78);
+    const [r,g,bb]=lerpCol(u);
+    X.fillStyle=`rgba(${r},${g},${bb},0.92)`;
+    rrect(i*gap+(gap-bw)/2, mid-hh/2, bw, hh, bw/2);
+  }
+  X.globalCompositeOperation='lighter';
+  for(const [w,al] of [[10,0.10],[4,0.25],[1.6,0.9]]){
+    X.lineWidth=w; X.strokeStyle=`rgba(200,220,255,${al})`; X.beginPath();
+    for(let x=0;x<=W;x+=4){ const u=x/W; const y=mid+Math.sin(Math.PI*u)*H*0.18*Math.sin(TAU*(3*u - p))*Math.cos(TAU*(u*0.5+p)); if(x) X.lineTo(x,y); else X.moveTo(x,y); }
+    X.stroke();
+  }
+  X.globalCompositeOperation='source-over';
+}
+
+// ---------- MCP: hub + curved links + travelling packets (card background) ----------
+let NODES=null;
+function setNodes(n){ NODES=n; }
+function bez(a,b,u){ const mx=(a[0]+b[0])/2; const P0=a,P1=[mx,a[1]],P2=[mx,b[1]],P3=b; const v=1-u; return [v*v*v*P0[0]+3*v*v*u*P1[0]+3*v*u*u*P2[0]+u*u*u*P3[0], v*v*v*P0[1]+3*v*v*u*P1[1]+3*v*u*u*P2[1]+u*u*u*P3[1]]; }
+function drawMCP(t, T){
+  const p=t/T; X.fillStyle='#0b1424'; X.fillRect(0,0,W,H);
+  const hub=NODES.hub, links=[];
+  for(const a of NODES.left) links.push([[a[0],a[1]],[hub[0]-hub[2],hub[1]]]);
+  for(const b of NODES.right) links.push([[hub[0]+hub[2],hub[1]],[b[0],b[1]]]);
+  links.forEach((L)=>{ const g=X.createLinearGradient(L[0][0],0,L[1][0],0); g.addColorStop(0,'rgba(120,152,190,0.6)'); g.addColorStop(1,'rgba(184,211,238,0.6)');
+    X.strokeStyle=g; X.lineWidth=2.2; X.beginPath(); for(let k=0;k<=40;k++){ const q=bez(L[0],L[1],k/40); if(k) X.lineTo(q[0],q[1]); else X.moveTo(q[0],q[1]); } X.stroke(); });
+  X.globalCompositeOperation='lighter';
+  for(let k=0;k<3;k++){ const ph=(p*2+k/3)%1; const r=hub[2]*(1+ph*0.9); X.strokeStyle=`rgba(170,200,235,${0.45*(1-ph)})`; X.lineWidth=2; X.beginPath(); X.arc(hub[0],hub[1],r,0,TAU); X.stroke(); }
+  let hg=X.createRadialGradient(hub[0],hub[1],0,hub[0],hub[1],hub[2]*1.6); hg.addColorStop(0,'rgba(150,185,225,0.35)'); hg.addColorStop(1,'rgba(0,0,0,0)'); X.fillStyle=hg; X.fillRect(hub[0]-hub[2]*2,hub[1]-hub[2]*2,hub[2]*4,hub[2]*4);
+  X.save(); X.translate(hub[0],hub[1]); X.rotate(TAU*p); X.setLineDash([6,10]); X.strokeStyle='rgba(200,220,240,0.6)'; X.lineWidth=1.6; X.beginPath(); X.arc(0,0,hub[2]*1.22,0,TAU); X.stroke(); X.restore();
+  links.forEach((L,i)=>{ for(let k=0;k<2;k++){ const u=(p*2 + i*0.17 + k*0.5)%1; const dir=(k===0); const q=bez(L[0],L[1],dir?u:1-u);
+      const a=Math.sin(Math.PI*u); const col = dir? '184,211,238' : '255,255,255';
+      let pg=X.createRadialGradient(q[0],q[1],0,q[0],q[1],16); pg.addColorStop(0,`rgba(${col},${0.9*a})`); pg.addColorStop(1,'rgba(0,0,0,0)'); X.fillStyle=pg; X.fillRect(q[0]-16,q[1]-16,32,32);
+      X.fillStyle=`rgba(255,255,255,${a})`; X.beginPath(); X.arc(q[0],q[1],2.6,0,TAU); X.fill(); } });
+  X.globalCompositeOperation='source-over';
+  let dg=X.createLinearGradient(hub[0]-hub[2],hub[1]-hub[2],hub[0]+hub[2],hub[1]+hub[2]); dg.addColorStop(0,'#5c7a99'); dg.addColorStop(1,'#b8d3ee');
+  X.fillStyle=dg; X.beginPath(); X.arc(hub[0],hub[1],hub[2],0,TAU); X.fill();
+}
+</script></body></html>

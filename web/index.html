@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI & Producție Multimedia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="overview">
+<div id="viewport">
+  <div id="stage">
+    <!-- persistent background: haze, morphing glows -->
+    <div class="bg">
+      <div class="glow g1"></div>
+      <div class="glow g2"></div>
+    </div>
+
+    <div class="deck">
+      <!-- ============ 1 — HERO ============ -->
+      <section class="slide s1" data-title="Inteligența Artificială">
+        <div class="card-bg"></div>
+        <video class="hero-video" src="assets/video/hero.mp4" poster="assets/video/hero.jpg" autoplay muted loop playsinline></video>
+        <div class="hero-shade"></div>
+        <div class="kicker" data-morph="kicker">Producție multimedia <span>·</span> 2026</div>
+        <h1 class="title hero-title" data-morph="title" data-split>Inteligența<br>Artificială</h1>
+        <p class="hero-sub" data-a="rise" data-d="0.7">și noua eră a <em>producției multimedia</em></p>
+        <div class="mline" data-morph="line"></div>
+      </section>
+
+      <!-- ============ 2 — WHO AM I (content to be added by the presenter) ============ -->
+      <section class="slide sme" data-title="Cine sunt eu?">
+        <div class="card-bg"></div>
+        <div class="kicker" data-morph="kicker"><b>02</b> / Despre mine</div>
+        <h2 class="title" data-morph="title">Cine sunt <em>eu?</em></h2>
+      </section>
+
+      <!-- ============ 3 — AGENDA: 4 chapters on a line; every item jumps to its slide ============ -->
+      <section class="slide sag" data-title="Agenda">
+        <div class="card-bg"></div>
+        <div class="kicker" data-morph="kicker"><b>03</b> / Agenda</div>
+        <h2 class="title" data-morph="title">Despre ce <em>vorbim azi</em></h2>
+        <span class="ag-time" data-a="fade" data-d="0.3">≈ 45 min · 4 capitole</span>
+        <i class="ag-line" data-a="unfold" data-d="0.2"></i>
+        <div class="ag-cols"></div>
+      </section>
+
+      <!-- ============ 3 — TIMELINE ============ -->
+      <section class="slide s2" data-title="Istoria AI">
+        <div class="card-bg"></div>
+        <div class="kicker" data-morph="kicker"><b>04</b> / Istoria AI</div>
+        <h2 class="title" data-morph="title">De la o întrebare la o <em>revoluție</em></h2>
+        <!-- roadmap: a glowing winding road (path set in deck.js), milestones placed along it -->
+        <svg class="road" viewBox="0 0 1600 900" aria-hidden="true">
+          <defs>
+            <linearGradient id="roadEdge" x1="0" y1="1" x2="1" y2="0">
+              <stop offset="0" stop-color="#5c7a99"/><stop offset=".55" stop-color="#e1ecf8"/><stop offset="1" stop-color="#b8d3ee"/>
+            </linearGradient>
+            <filter id="roadGlow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="16"/></filter>
+          </defs>
+          <ellipse class="road-floor" cx="820" cy="640" rx="760" ry="200"/>
+          <path class="road-glow road-draw"/>
+          <path class="road-edge road-draw"/>
+          <path class="road-body road-draw"/>
+          <path class="road-dash"/>
+          <path class="road-arrow"/>
+        </svg>
+        <div class="timeline">
+          <!-- milestones are generated in deck.js -->
+        </div>
+        <p class="road-info"></p>
+      </section>
+
+      <!-- ============ 4 — COMPANIES ============ -->
+      <section class="slide s3" data-title="Companii AI">
+        <div class="card-bg"></div>
+        <div class="kicker" data-morph="kicker"><b>05</b> / Cine construiește AI</div>
+        <h2 class="title" data-morph="title">Companiile care modelează <em>AI-ul</em></h2>
+        <div class="cols">
+          <div class="col col-title" data-a="unfold" data-d="0.15">
+            <div class="ci" data-a="fade" data-d="0.55">
+              <span class="ct-label">Peisajul AI · 2026</span>
+              <div class="ct-big">9</div><div class="ct-sub">companii-cheie</div>
+              <div class="bar"><span>SUA</span><b>6</b><i style="--w:67%"></i></div>
+              <div class="bar"><span>China</span><b>3</b><i style="--w:33%"></i></div>
+              <p class="ct-note">Modele închise și deschise, într-o competiție globală.</p>
+            </div>
+          </div>
+          <!-- company columns are generated in deck.js -->
+        </div>
+      </section>
+
+      <!-- ============ 5 — MODELS: how open is a model? (glass opacity = openness) ============ -->
+      <section class="slide s5" data-title="Modele AI">
+        <div class="card-bg"></div>
+        <div class="kicker" data-morph="kicker"><b>06</b> / Modele AI</div>
+        <h2 class="title" data-morph="title">Modele AI: închise sau <em>deschise?</em></h2>
+        <div class="glass-row">
+          <div class="gc gc-closed" data-a="flip" data-d="0.3">
+            <div class="gc-ico"><img src="assets/icons/lock.png" alt=""></div>
+            <div class="gc-meter"><i class="on"></i><i></i><i></i></div>
+            <h3>Closed</h3><p>Folosești modelul doar prin aplicație sau API.</p>
+            <div class="chips"><span>GPT</span><span>Gemini</span><span>Claude</span><span>Midjourney</span></div>
+          </div>
+          <div class="gc gc-weight" data-a="flip" data-d="0.5">
+            <div class="gc-ico"><img src="assets/icons/cube.png" alt=""></div>
+            <div class="gc-meter"><i class="on"></i><i class="on"></i><i></i></div>
+            <h3>Open-weight</h3><p>Descarci modelul; licența poate avea limite.</p>
+            <div class="chips"><span>Llama</span><span>Qwen</span><span>DeepSeek</span><span>FLUX.2 [dev]</span></div>
+          </div>
+          <div class="gc gc-source" data-a="flip" data-d="0.7">
+            <div class="gc-ico"><img src="assets/icons/code.png" alt=""></div>
+            <div class="gc-meter"><i class="on"></i><i class="on"></i><i class="on"></i></div>
+            <h3>Open-source</h3><p>Model, cod și date — totul deschis.</p>
+            <div class="chips"><span>OLMo</span><span>Pythia</span></div>
+          </div>
+        </div>
+        <div class="spectrum" data-a="fade" data-d="1.0">
+          <span>mai închis</span><div class="sp-bar"><i class="sp-fill" data-a="unfold" data-d="1.1"></i></div><span>mai deschis</span>
+        </div>
+        <div class="hf" data-a="rise" data-d="1.3">
+          <img src="assets/logos/huggingface.png" alt="Hugging Face">
+          <div><b>3M+</b><span>modele publice pe Hugging Face</span></div>
+        </div>
+      </section>
+
+      <!-- ============ 6 — IMAGE GENERATION: prompt typed live, image resolves from noise, before/after slider ============ -->
+      <section class="slide s6" data-title="Image generation" data-fx="s6">
+        <div class="card-bg"></div>
+        <div class="kicker" data-morph="kicker"><b>07</b> / Image generation</div>
+        <h2 class="title" data-morph="title">AI Image <em>Generation</em></h2>
+        <div class="tools" data-a="fade" data-d="0.15">
+          <span><i class="mono">MJ</i>Midjourney</span>
+          <span><img src="assets/logos/adobe.png" alt="">Adobe Firefly</span>
+          <span><i class="mono">FX</i>FLUX</span>
+          <span><img src="assets/logos/openai.png" alt="">ChatGPT Images</span>
+          <span><img src="assets/logos/google.png" alt="">Nano Banana</span>
+        </div>
+        <div class="ig ig-t2i" data-a="rise" data-d="0.25">
+          <div class="ig-lab">Text-to-image</div>
+          <div class="prompt"><span class="prompt-text"></span><i class="caret"></i></div>
+          <div class="gen"><img class="gen-img" src="assets/img/mars.jpg" alt="Astronaut într-o seră pe Marte (generat cu AI)"><div class="gen-noise"></div><span class="gen-tag">Nano Banana 2.1</span></div>
+          <div class="flux-card"><img src="assets/img/headphones.jpg" alt="Căști din sticlă lichidă (generat cu AI)"><span>FLUX.2 Pro</span></div>
+        </div>
+        <div class="ig ig-i2i" data-a="rise" data-d="0.4">
+          <div class="ig-lab">Image-to-image</div>
+          <div class="prompt">imaginea + „stil anime în acuarelă”</div>
+          <div class="ba" style="--p:50%">
+            <img class="ba-after" src="assets/img/mars_anime.jpg" alt="Aceeași scenă în stil anime (generat cu AI)">
+            <img class="ba-before" src="assets/img/mars.jpg" alt="">
+            <div class="ba-handle"><i></i></div>
+            <span class="ba-l">Original</span><span class="ba-r">Rezultat</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 7 — VIDEO GENERATION: cinematic screen with camera HUD, start frame → clip, text-to-video ============ -->
+      <section class="slide s7" data-title="Video generation">
+        <div class="card-bg"></div>
+        <div class="kicker" data-morph="kicker"><b>08</b> / Video generation</div>
+        <h2 class="title" data-morph="title">AI Video <em>Generation</em></h2>
+        <div class="tools vtools" data-a="fade" data-d="0.15">
+          <span>Higgsfield</span><span>Kling AI</span><span>Runway</span><span>Google Veo</span><span>Seedance</span><span class="off">Sora · închis 2026</span>
+        </div>
+        <div class="cine" data-a="zoom" data-d="0.3">
+          <video class="cine-vid" src="assets/video/bucharest.mp4" poster="assets/video/bucharest.jpg" autoplay muted loop playsinline></video>
+          <div class="bars"></div>
+          <span class="hud-tag">Image-to-video · Kling 2.5</span>
+          <span class="hud-rec"><i></i>REC</span>
+          <span class="hud-cam">Camera · dolly-in <i class="chev"><b></b><b></b></i></span>
+          <span class="hud-tc">00:00:00:00</span>
+        </div>
+        <div class="side side-start" data-a="rise" data-d="0.6">
+          <div class="side-lab">Cadru de start · imagine</div>
+          <div class="side-media"><img src="assets/img/bucharest.jpg" alt="Cadrul de start, generat cu Nano Banana 2.1"></div>
+          <div class="side-arrow">←</div>
+        </div>
+        <div class="side side-t2v" data-a="rise" data-d="0.8">
+          <div class="side-lab">Text-to-video</div>
+          <div class="side-media"><video src="assets/video/origami.mp4" poster="assets/video/origami.jpg" autoplay muted loop playsinline></video>
+            <span class="side-prompt">„cocoară origami care prinde viață”</span></div>
+        </div>
+        <div class="concepts" data-a="rise" data-d="1.0">
+          <span>Text-to-Video</span><span>Image-to-Video</span><span>Camera movement</span><span>Character consistency</span><span>AI video editing</span>
+        </div>
+      </section>
+
+      <!-- ============ 8 — AUDIO GENERATION: a live waveform that changes with the selected tool ============ -->
+      <section class="slide s8" data-title="Audio generation">
+        <div class="card-bg"></div>
+        <div class="kicker" data-morph="kicker"><b>09</b> / Audio generation</div>
+        <h2 class="title" data-morph="title">AI Audio <em>Generation</em></h2>
+        <div class="wave-panel" data-a="zoom" data-d="0.3">
+          <canvas class="wave" width="2912" height="540"></canvas>
+          <span class="wave-mode"></span>
+          <span class="wave-text"></span>
+        </div>
+        <div class="acards">
+          <button class="ac" data-mode="voice" data-a="rise" data-d="0.6"><span class="ac-ico"><img src="assets/icons/mic.png" alt=""></span><span class="ac-cat">Voice</span><b>ElevenLabs</b><span class="ac-txt">voci realiste, clonare, dublaj</span></button>
+          <button class="ac" data-mode="music" data-a="rise" data-d="0.72"><span class="ac-ico"><img src="assets/icons/music.png" alt=""></span><span class="ac-cat">Music</span><b>Suno</b><span class="ac-txt">piese complete dintr-un prompt</span></button>
+          <button class="ac" data-mode="enhance" data-a="rise" data-d="0.84"><span class="ac-ico"><img src="assets/icons/speaker.png" alt=""></span><span class="ac-cat">Enhancement</span><b>Adobe Podcast</b><span class="ac-txt">sunet de studio din orice cameră</span></button>
+          <button class="ac" data-mode="transcribe" data-a="rise" data-d="0.96"><span class="ac-ico"><img src="assets/icons/doc.png" alt=""></span><span class="ac-cat">Transcription</span><b>Descript</b><span class="ac-txt">editezi audio ca pe un text</span></button>
+        </div>
+        <p class="ethics" data-a="fade" data-d="1.3"><img src="assets/icons/warning.png" alt="">Clonarea vocii fără acord = problemă etică și legală.</p>
+      </section>
+
+      <!-- ============ 9 — PIPELINE: a line draws from idea to audience, stages light up; a light pulse runs through once ============ -->
+      <section class="slide s9" data-title="Pipeline creativ" data-fx="s9">
+        <div class="card-bg"></div>
+        <div class="kicker" data-morph="kicker"><b>10</b> / Pipeline creativ</div>
+        <h2 class="title" data-morph="title">AI în tot <em>pipeline-ul creativ</em></h2>
+        <p class="pipe-info"></p>
+        <div class="pipe-track"><i class="pipe-line"></i><i class="pipe-pulse"></i></div>
+        <div class="pipe"></div>
+        <div class="human" data-a="unfold" data-d="2.5">
+          <img src="assets/icons/person.png" alt="">
+          <span><b>Omul</b> rămâne regizorul</span>
+          <em>viziune · selecție · gust · decizia finală</em>
+        </div>
+      </section>
+
+      <!-- ============ 10 — AGENTS & MCP: chatbot vs agent; an agent hub wired to apps through MCP runs a real task once ============ -->
+      <section class="slide s10" data-title="AI Agents & MCP" data-fx="s10">
+        <div class="card-bg"></div>
+        <div class="kicker" data-morph="kicker"><b>11</b> / AI Agents &amp; MCP</div>
+        <h2 class="title" data-morph="title">De la chatbot la <em>AI Agent</em></h2>
+        <div class="cmp cmp-bot" data-a="rise" data-d="0.3">
+          <b>Chatbot</b>
+          <div class="flow"><span>Întrebare</span><i>→</i><span>Răspuns</span></div>
+          <em>îți spune ce să faci</em>
+        </div>
+        <div class="cmp cmp-agent" data-a="rise" data-d="0.45">
+          <b>AI Agent</b>
+          <div class="flow"><span>Obiectiv</span><i>→</i><span>Plan</span><i>→</i><span>Unelte</span><i>→</i><span>Rezultat</span></div>
+          <em>face el, pas cu pas</em>
+        </div>
+        <div class="task" data-a="rise" data-d="0.6">
+          <div class="task-lab">Exemplu · reel în Premiere Pro</div>
+          <div class="prompt"><span class="task-prompt"></span><i class="caret"></i></div>
+          <ol class="steps"></ol>
+        </div>
+        <div class="mcp">
+          <svg class="mcp-lines" viewBox="0 0 900 680" width="900" height="680"></svg>
+          <div class="hub" data-a="zoom" data-d="0.4"><img src="assets/icons/robot.png" alt=""><span>AI Agent</span></div>
+          <span class="mcp-chip" data-a="fade" data-d="0.9">MCP</span>
+        </div>
+      </section>
+
+      <!-- ============ 11 — NO PERFECT MODEL: scattered hexagon pieces fly together into one honeycomb around Premiere Pro ============ -->
+      <section class="slide s11" data-title="Perspectiva mea" data-fx="s11">
+        <div class="card-bg"></div>
+        <div class="kicker" data-morph="kicker"><b>12</b> / Perspectiva mea</div>
+        <h2 class="title" data-morph="title">Nu există un model AI <em>perfect</em></h2>
+        <p class="quote" data-a="rise" data-d="0.4">Nu caut cel mai bun model —<br>caut cea mai bună <em>combinație</em>.</p>
+        <ul class="rules" data-a="rise" data-d="0.7"><li>fiecare model are un punct forte</li><li>testez și compar rezultatele</li><li>verific mereu ce iese</li></ul>
+        <div class="hx-info"></div>
+        <div class="hive"></div>
+      </section>
+
+      <!-- ============ 12 — PRICING: my creative stack as price bars that add up to one total; what people really spend ============ -->
+      <section class="slide spr" data-title="Cât costă AI-ul" data-fx="spr">
+        <div class="card-bg"></div>
+        <div class="kicker" data-morph="kicker"><b>13</b> / Prețuri</div>
+        <h2 class="title" data-morph="title">Cât costă <em>AI-ul?</em></h2>
+        <div class="pr-lab" data-a="fade" data-d="0.2">Stack-ul meu · abonamente / lună</div>
+        <div class="pr-rows"></div>
+        <div class="pr-total" data-a="rise" data-d="1.4"><span>Total</span><div class="pr-stack"></div><b class="pr-sum">≈ $105</b></div>
+        <div class="pr-stats"></div>
+        <p class="pr-note" data-a="fade" data-d="2.0">Aproape toate au plan gratuit · planurile pentru uz intens: $100–200+ / lună · prețuri SUA, fără TVA, nov. 2026</p>
+      </section>
+
+      <!-- ============ 12 — LIMITS & FUTURE: infographic — a diamond in the centre, 3 limits left, 3 future pills right ============ -->
+      <section class="slide s12" data-title="Limite & viitor">
+        <div class="card-bg"></div>
+        <div class="kicker" data-morph="kicker"><b>14</b> / Limite &amp; viitor</div>
+        <h2 class="title" data-morph="title">Limite, riscuri și <em>viitor</em></h2>
+        <div class="lf-lab lf-lab-l" data-a="fade" data-d="0.5">Azi · limite</div>
+        <div class="lf-lab lf-lab-r" data-a="fade" data-d="0.5">Mâine · viitor</div>
+        <div class="ig-links"></div>
+        <div class="dia" data-a="dia" data-d="0.2"><i class="dia-ring"></i><i class="dia-sq"></i>
+          <div class="dia-txt"><b>AI</b><span>azi → mâine</span></div></div>
+        <div class="ig-pills"></div>
+      </section>
+
+      <!-- ============ 13 — FROM IDEA TO FINAL PRODUCT: one project through 5 stages, then the closing question ============ -->
+      <section class="slide s13" data-title="Demonstrație" data-fx="s13">
+        <div class="card-bg"></div>
+        <div class="kicker" data-morph="kicker"><b>15</b> / Demonstrație</div>
+        <h2 class="title" data-morph="title">De la idee la <em>produs final</em></h2>
+        <div class="demo">
+          <div class="df" data-a="flip" data-d="0.3"><span class="df-lab"><b>01</b> Idee</span>
+            <div class="df-media df-idea"><p class="df-prompt"></p><i class="caret"></i></div><span class="df-tool">LLM · ChatGPT / Claude</span></div>
+          <div class="df" data-a="flip" data-d="0.6"><span class="df-lab"><b>02</b> Storyboard</span>
+            <div class="df-media"><img src="assets/img/storyboard.jpg" alt="Schiță de storyboard"></div><span class="df-tool">schiță generată cu AI</span></div>
+          <div class="df" data-a="flip" data-d="0.9"><span class="df-lab"><b>03</b> Cadru-cheie</span>
+            <div class="df-media"><img src="assets/img/bucharest.jpg" alt="Cadrul-cheie"></div><span class="df-tool">Nano Banana</span></div>
+          <div class="df" data-a="flip" data-d="1.2"><span class="df-lab"><b>04</b> Animație</span>
+            <div class="df-media"><video src="assets/video/bucharest.mp4" poster="assets/video/bucharest.jpg" muted loop playsinline></video></div><span class="df-tool">Kling · image-to-video</span></div>
+          <div class="df" data-a="flip" data-d="1.5"><span class="df-lab"><b>05</b> Sunet &amp; montaj</span>
+            <div class="df-media df-tl"><i class="trk trk-v"><b></b><b></b><b></b></i><i class="trk trk-a"></i><i class="trk trk-m"><b></b></i><i class="phead"></i></div><span class="df-tool">ElevenLabs · Suno · Premiere Pro</span></div>
+        </div>
+        <div class="demo-bar"><i></i></div>
+        <div class="q-lab" data-a="fade" data-d="2.4">Întrebarea finală</div>
+        <p class="q">
+          <span data-a="rise" data-d="2.6">Va înlocui AI-ul oamenii creativi —</span>
+          <span data-a="rise" data-d="2.85">sau oamenii creativi <em>care știu să folosească AI</em></span>
+          <span data-a="rise" data-d="3.1">îi vor înlocui pe cei care nu știu?</span>
+        </p>
+      </section>
+
+      <!-- ============ 14 — SOURCES: six glass cards of clickable sources, then a thank-you line ============ -->
+      <section class="slide s14" data-title="Surse">
+        <div class="card-bg"></div>
+        <div class="kicker" data-morph="kicker"><b>16</b> / Surse</div>
+        <h2 class="title" data-morph="title">Surse &amp; <em>resurse</em></h2>
+        <div class="srcs"></div>
+        <div class="thanks" data-a="rise" data-d="1.4"><span>Mulțumesc! <em>Întrebări?</em></span>
+          <small>Imaginile și clipurile din exemple au fost generate cu AI. Informații verificate în noiembrie 2026.</small></div>
+      </section>
+    </div>
+
+    <!-- overview (intro) chrome -->
+    <div class="ov-chrome">
+      <div class="ov-label">Producție multimedia <span>·</span> 2026</div>
+    </div>
+  </div>
+</div>
+
+<aside id="notes" aria-hidden="true">
+  <div class="notes-head"><span class="notes-title"></span><span class="notes-close">N pentru a închide</span></div>
+  <div class="notes-body"></div>
+</aside>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="js/deck.js"></script>
+</body>
+</html>

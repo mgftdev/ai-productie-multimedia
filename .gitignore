@@ -1,0 +1,5 @@
+# working files (generated media, 95 MB) — the site only needs web/
+/assets/
+/.claude/
+__pycache__/
+*.pyc
